@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1226">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Siparişi Yetiştir">
+<meta name="application-name" content="Siparişi Yetiştir">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Siparişi Yetiştir – Motion Menü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="scene"></canvas>
+
+  <!-- Oyun HUD -->
+  <div id="hud" class="layer hidden">
+    <button id="btnPause" class="btn-round" aria-label="Duraklat">
+      <svg viewBox="0 0 24 24"><rect x="6" y="5" width="4.2" height="14" rx="1.6"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.6"/></svg>
+    </button>
+    <div class="timer" id="timer">
+      <div class="timer-row">
+        <svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="13.5" r="8"/><path d="M12 8.5v5l3 2M9.5 2.5h5"/></svg>
+        <span id="timeVal">45</span><small>sn</small>
+      </div>
+      <i class="bar"><b id="timeBar"></b></i>
+    </div>
+    <div class="score" id="score"><small>PUAN</small><span id="scoreVal">0</span></div>
+    <div id="reward" class="reward">
+      <i id="rewardFill"></i>
+      <svg viewBox="0 0 24 24" class="gift"><path d="M3 9h18v4H3zM5 13h14v8H5zM12 9v12M12 9c-2.5 0-4-1-4-2.5S9.5 4 12 9zM12 9c2.5 0 4-1 4-2.5S14.5 4 12 9z"/></svg>
+      <span id="rewardText">İNDİRİM  0 / 100</span>
+    </div>
+    <div id="combo" class="combo off"><span>KOMBO</span><b id="comboVal">x2</b></div>
+  </div>
+
+  <!-- Malzeme butonları (JS doldurur) -->
+  <div id="tray" class="layer hidden"></div>
+
+  <!-- Ana menü -->
+  <section id="scrMenu" class="screen">
+    <button id="btnInstall" class="btn-round gear inst hidden" aria-label="Ana ekrana ekle">
+      <svg viewBox="0 0 24 24"><path d="M12 3v11M7.5 10 12 14.5 16.5 10M5 19h14"/></svg>
+    </button>
+    <button id="btnGear" class="btn-round gear" aria-label="Ayarlar">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <div class="hero">
+      <img class="hero-mascot" src="assets/img/ui/mascot_menu.png" alt="" draggable="false">
+      <svg class="arms" viewBox="0 0 340 232" aria-hidden="true">
+        <defs><linearGradient id="armG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2b2e"/><stop offset=".5" stop-color="#121214"/><stop offset="1" stop-color="#050506"/></linearGradient></defs>
+        <g fill="none" stroke-linecap="round">
+          <path d="M112 112 Q80 108 70 152" stroke="#4a1410" stroke-width="21"/>
+          <path d="M112 112 Q80 108 70 152" stroke="url(#armG)" stroke-width="17"/>
+          <path d="M110 108 Q82 104 73 146" stroke="#5a5a62" stroke-width="3" opacity=".55"/>
+          <path d="M238 116 Q262 112 272 152" stroke="#4a1410" stroke-width="21"/>
+          <path d="M238 116 Q262 112 272 152" stroke="url(#armG)" stroke-width="17"/>
+          <path d="M240 112 Q260 108 269 146" stroke="#5a5a62" stroke-width="3" opacity=".55"/>
+        </g>
+      </svg>
+      <div class="brand"><span class="dot"></span>MOTION MENÜ</div>
+      <img class="glove gl" src="assets/img/ui/glove.png" alt="" draggable="false">
+      <img class="glove gr" src="assets/img/ui/glove.png" alt="" draggable="false">
+    </div>
+    <div class="logo">
+      <img id="logoImg" alt="Siparişi Yetiştir" hidden>
+      <div id="logoText"><span class="l1">Siparişi</span><span class="l2">Yetiştir!</span></div>
+    </div>
+    <div class="spacer"></div>
+    <button id="btnPlay" class="btn btn-play">OYNA</button>
+    <button id="btnHow" class="btn btn-sec">Nasıl Oynanır?</button>
+    <div class="best-pill">
+      <svg viewBox="0 0 24 24" class="trophy"><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 14v3M8 20h8M9.5 17h5v3h-5z"/></svg>
+      <span>EN YÜKSEK SKOR</span><b id="menuBest">0</b>
+      <p id="menuTip"></p>
+    </div>
+  </section>
+
+  <!-- Nasıl oynanır -->
+  <section id="scrHow" class="screen hidden dim">
+    <div class="panel">
+      <h2>Nasıl Oynanır?</h2>
+      <ol class="how">
+        <li><i>1</i><p>Her siparişte farklı bir <b>yemek</b> gelir. Kartı oku, <b>alttan üste</b> sırayla hazırla.</p></li>
+        <li><i>2</i><p>Butonlar yemeğe göre <b>değişir</b> ve yerleri <b>karışır</b>. Ezberlemek işe yaramaz!</p></li>
+        <li><i>3</i><p>Müşterinin <b>sabır çubuğu</b> biter ve yetişemezsen <b class="bad">-6 sn</b>. Yanlış dokunuş <b class="bad">-10 sn</b>.</p></li>
+        <li><i>4</i><p><b>Hızlı</b> ve hatasız yetiştirdikçe bonus puan, kombo ve <b>altın sipariş</b> gelir.</p></li>
+        <li><i>5</i><p><b>130 puana</b> ulaşabilen çok az kişi <b>indirim kuponu</b> kazanır. Sen yapabilir misin?</p></li>
+      </ol>
+      <button id="btnHowBack" class="btn btn-play small">ANLADIM</button>
+    </div>
+  </section>
+
+  <!-- Duraklatma -->
+  <section id="scrPause" class="screen hidden dim">
+    <div class="panel">
+      <h2>Duraklatıldı</h2>
+      <button id="btnResume" class="btn btn-play">DEVAM ET</button>
+      <button id="btnPauseSet" class="btn btn-sec">Ayarlar</button>
+      <button id="btnPauseMenu" class="btn btn-sec">Ana Menü</button>
+    </div>
+  </section>
+
+  <!-- Ana ekrana ekle (iPhone/Android) -->
+  <section id="scrInstall" class="screen hidden dim">
+    <div class="panel">
+      <h2>Ana Ekrana Ekle</h2>
+      <ol class="how" id="installSteps"></ol>
+      <button id="btnInstallBack" class="btn btn-play small">TAMAM</button>
+    </div>
+  </section>
+
+  <!-- Ayarlar -->
+  <section id="scrSet" class="screen hidden dim">
+    <div class="panel">
+      <h2>Ayarlar</h2>
+      <div class="set-row">
+        <svg viewBox="0 0 24 24" class="set-ic"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+        <label for="rngMusic">Müzik</label><b id="valMusic">50</b>
+        <input id="rngMusic" type="range" min="0" max="100" step="1" value="50">
+      </div>
+      <div class="set-row">
+        <svg viewBox="0 0 24 24" class="set-ic"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <label for="rngSfx">Efektler</label><b id="valSfx">80</b>
+        <input id="rngSfx" type="range" min="0" max="100" step="1" value="80">
+      </div>
+      <button id="btnSetBack" class="btn btn-play small">TAMAM</button>
+    </div>
+  </section>
+
+  <!-- Oyun sonu -->
+  <section id="scrOver" class="screen hidden dim">
+    <div class="panel over">
+      <div class="over-title">SÜRE DOLDU!</div>
+      <div class="over-label">TOPLAM PUAN</div>
+      <div class="over-score" id="overScore">0</div>
+      <div id="newRecord" class="record hidden">YENİ REKOR!</div>
+      <div id="overCoupon" class="coupon"></div>
+      <div class="over-rows">
+        <div><span>Tamamlanan Sipariş</span><b id="overOrders">0</b></div>
+        <div><span>En Yüksek Skor</span><b id="overBest">0</b></div>
+      </div>
+      <button id="btnAgain" class="btn btn-play">TEKRAR OYNA</button>
+      <button id="btnOverMenu" class="btn btn-sec">Ana Menü</button>
+    </div>
+  </section>
+</div>
+
+<noscript>Bu oyun için JavaScript gerekir.</noscript>
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/assets.js"></script>
+<script src="js/orders.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/mascot.js"></script>
+<script src="js/game.js"></script>
+<script src="js/render.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

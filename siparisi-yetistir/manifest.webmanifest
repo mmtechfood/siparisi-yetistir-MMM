@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Siparişi Yetiştir – Motion Menü",
+  "short_name": "Siparişi Yetiştir",
+  "description": "Motion Menü ile siparişini beklerken oyna, indirim kazan.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "./index.html?kaynak=pwa",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "portrait",
+  "background_color": "#0b1226",
+  "theme_color": "#0b1226",
+  "categories": ["games", "food"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
